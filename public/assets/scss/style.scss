@@ -1,0 +1,111 @@
+/*
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ *
+ * Template Name: Sasna - Multipurpose Business HTML Template   
+ * Template URI: https://thememarch.com/demo/html/sasna/
+ * Description: Sasna is a multipurpose business HTML template which comes with the unique and clean design. It helps you to create a beautiful multipurpose business HTML website. It has also e-commerce support. E-commerce pages are included on this template.
+ * Author: Thememarch
+ * Author URI: https://thememarch.com
+ * Version: 4.5
+ *
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ */
+
+/*
+===========================================================
+    INDEX
+===========================================================
+
+    01) Reset
+    02) Animations
+    03) Typography
+    04) Utilities
+
+    05) Button
+    06) Title
+    07) Slider Elements
+    08) Tab
+    09) Selectbox
+    10) Breadcrumb
+    11) Pagination
+    12) Comment
+    13) Form Styles
+
+    14) Header
+    15) Navigation
+    16) Heroslider
+    17) About
+    18) Feature
+    19) Funfact
+    20) Service
+    21) Testimonial
+    22) Product
+    23) Promo
+    24) Blog
+    25) Brand Logo
+    26) Why Choose
+    27) Team Member
+    28) Faq Area
+    29) Pricebox
+    30) Widgets
+    31) Portfolio
+    32) Contact
+    33) Shop
+    34) Footer
+
+    35) Product Details
+    36) Shopping Cart
+    37) Checkout
+    38) My Account
+
+===========================================================
+    END INDEX
+===========================================================
+*/
+
+@import "variables";
+@import "mixins";
+
+@import "basic/reset";
+@import "basic/animations";
+@import "basic/typography";
+@import "basic/utilities";
+
+@import "elements/button";
+@import "elements/titles";
+@import "elements/slider-elements";
+@import "elements/tab";
+@import "elements/selectbox";
+@import "elements/breadcrumb";
+@import "elements/pagination";
+@import "elements/comment";
+@import "elements/form";
+
+@import "sections/header";
+@import "sections/nav";
+@import "sections/heroslider";
+@import "sections/about";
+@import "sections/features";
+@import "sections/funfact";
+@import "sections/services";
+@import "sections/testimonial";
+@import "sections/cta";
+@import "sections/product";
+@import "sections/promo";
+@import "sections/blog";
+@import "sections/brandlogo";
+@import "sections/whychoose";
+@import "sections/team";
+@import "sections/faq";
+@import "sections/pricebox";
+@import "sections/widgets";
+@import "sections/portfolio";
+@import "sections/contact";
+@import "sections/shop";
+@import "sections/footer";
+@import "sections/mission";
+
+@import "pages/product-details";
+@import "pages/cart";
+@import "pages/checkout";
+@import "pages/account";

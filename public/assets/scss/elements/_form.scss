@@ -1,0 +1,53 @@
+/**
+ * Form Styles
+ */
+
+.tm-form {
+
+    &-inner {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: -20px;
+    }
+
+    &-field {
+        margin-top: 20px;
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        a {
+            color: $color-body;
+
+            &:hover {
+                color: $color-theme;
+            }
+        }
+    }
+
+    &-fieldhalf {
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+
+    input,
+    textarea,
+    select {
+        @include placeholder-color(lighten($color-body, 30));
+    }
+
+    &.tm-form-bordered {
+        border: 1px solid $color-border;
+        padding: 30px;
+    }
+
+    @media #{$layout-mobile-sm} {
+        &.tm-form-bordered {
+            padding: 20px;
+        }
+        &-fieldhalf {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+}

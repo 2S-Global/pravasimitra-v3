@@ -1,0 +1,30 @@
+/**
+ * Shop
+ */
+
+.tm-shop {
+    &-header {
+        margin-bottom: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: -15px;
+
+        .nice-select {
+            width: auto;
+            min-width: 200px;
+            margin-top: 15px;
+
+            .list {
+                width: 100%;
+            }
+        }
+    }
+
+    &-countview {
+        margin-bottom: 0;
+        flex-grow: 100;
+        margin-top: 15px;
+    }
+}

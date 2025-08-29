@@ -1,0 +1,152 @@
+/**
+ * Shopping Cart
+ */
+
+.tm-cart-table {
+    text-align: center;
+
+    tr {
+        th {
+            text-transform: uppercase;
+            color: $color-heading;
+            font-weight: 700;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+    }
+
+    .tm-cart {
+
+        &-col-image {
+            width: 180px;
+            min-width: 180px;
+        }
+
+        &-col-remove {
+            width: 100px;
+            min-width: 100px;
+        }
+
+        &-col-productname {
+            min-width: 250px;
+        }
+
+        &-col-price,
+        &-col-total {
+            min-width: 100px;
+        }
+
+        &-productimage {
+            margin: 5px 30px;
+            display: inline-block;
+            border: 1px solid $color-border;
+        }
+
+        &-productname {
+            color: $color-heading;
+            font-weight: 600;
+
+            &:hover {
+                color: $color-theme;
+            }
+        }
+
+        &-totalprice {
+            font-weight: 700;
+            color: $color-body;
+        }
+
+        &-removeproduct {
+            border: none;
+
+            &:hover {
+                color: $color-theme;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        @media #{$layout-mobile-lg} {
+            &-col-image {
+                width: 120px;
+                min-width: 120px;
+            }
+
+            &-productimage {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.tm-cart {
+    &-bottomarea {
+        margin-top: 30px;
+    }
+
+    &-coupon {
+        display: flex;
+        margin-top: 40px;
+        flex-wrap: wrap;
+
+        label {
+            flex: 0 0 100%;
+            max-width: 100%;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        input:not([type="submit"]) {
+            margin-right: 10px;
+            max-width: 220px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &-pricebox {
+        text-align: right;
+
+        & > h2{
+            margin-top: -8px;
+            font-weight: 700;
+        }
+        
+        table {
+            margin-bottom: 30px;
+
+            td {
+                padding: 0;
+                font-size: 16px;
+                color: $color-body
+            }
+
+            .tm-cart-pricebox-shipping {
+                td {
+                    padding-top: 5px;
+                }
+            }
+
+            .tm-cart-pricebox-total {
+                
+                td {
+                    color: $color-heading;
+                    font-weight: 700;
+                    font-size: 22px;
+                    padding-top: 20px;
+                }
+            }
+        }
+    }
+
+    @media #{$layout-mobile-lg}{
+        &-pricebox{
+            text-align: left;
+            margin-top: 30px;
+        }
+    }
+}

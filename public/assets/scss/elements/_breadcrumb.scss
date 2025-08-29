@@ -1,0 +1,76 @@
+/**
+ * Breadcrumb
+ */
+
+.tm-breadcrumb-area {
+    position: relative;
+    z-index: 1;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        @include gradient-bg(a, 90);
+        z-index: -1;
+    }
+
+    h2 {
+        font-weight: 700;
+        font-size: 40px;
+        margin-bottom: 5px;
+    }
+
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        font-size: 0;
+
+        li {
+            list-style: none;
+            display: inline-block;
+            font-size: 18px;
+
+            &::after {
+                content: "/";
+                padding: 0 8px;
+            }
+
+            &:last-child {
+                &::after {
+                    display: none;
+                }
+            }
+
+            a {
+                color: $color-body;
+
+                &:hover {
+                    color: $color-theme;
+                }
+            }
+        }
+    }
+
+    @media #{$layout-tablet} {
+        h2 {
+            font-size: 32px;
+            line-height: 46px;
+        }
+    }
+
+    @media #{$layout-mobile-lg} {
+        h2 {
+            font-size: 30px;
+            line-height: 40px;
+        }
+
+        ul {
+            li {
+                font-size: 16px;
+            }
+        }
+    }
+}

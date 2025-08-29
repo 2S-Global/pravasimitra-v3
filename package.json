@@ -1,0 +1,46 @@
+{
+  "name": "probashi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@stripe/stripe-js": "^7.8.0",
+    "@tanstack/react-table": "^8.21.3",
+    "alertifyjs": "^1.14.0",
+    "axios": "^1.10.0",
+    "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.4.9",
+    "cloudinary": "^2.7.0",
+    "dotenv": "^17.2.1",
+    "formidable": "^3.5.4",
+    "jose": "^6.0.11",
+    "jquery": "^3.7.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.2",
+    "next": "^15.3.5",
+    "nodemailer": "^7.0.3",
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.10",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^18.4.0",
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
+  }
+}

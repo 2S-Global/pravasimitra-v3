@@ -1,0 +1,28 @@
+/*
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ *
+ * Template Name: Sasna - Multipurpose Business HTML Template   
+ * Template URI: https://thememarch.com/demo/html/sasna/
+ * Description: Sasna is a multipurpose business HTML template which comes with the unique and clean design. It helps you to create a beautiful multipurpose business HTML website. It has also e-commerce support. E-commerce pages are included on this template.
+ * Author: Thememarch
+ * Author URI: https://thememarch.com
+ * Version: 4.5
+ *
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ */
+
+
+.btn-outline-custom {
+  color: rgb(179, 40, 7) !important;
+  border-color: rgb(179, 40, 7)  !important;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus,
+.btn-outline-custom:active,
+.btn-outline-custom.active,
+.show > .btn-outline-custom.dropdown-toggle {
+  color: white;
+  background-color: rgb(179, 40, 7)  !important;
+  border-color: rgb(179, 40, 7)  !important;
+}

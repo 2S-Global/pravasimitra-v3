@@ -1,0 +1,122 @@
+/**
+ * Contact
+ */
+
+.tm-contact {
+    &-block {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 40px 50px;
+
+        h5 {
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-bottom: 0;
+
+            a {
+                color: $color-body;
+
+                &:hover {
+                    color: $color-theme;
+                }
+            }
+        }
+    }
+
+    &-icon {
+        display: inline-block;
+        height: 93px;
+        width: 93px;
+        line-height: 93px;
+        font-size: 40px;
+        text-align: center;
+        border-radius: 999px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    &-formwrapper {
+        padding: 60px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        h5 {
+            margin-bottom: 20px;
+            margin-top: -4px;
+        }
+    }
+
+    &-form {
+        margin-top: -15px;
+    }
+
+    &-formfield {
+        margin-top: 15px;
+
+        input,
+        textarea {
+            padding: 0;
+            border: 0;
+            border-bottom: 1px solid $color-border;
+
+            &:focus,
+            &:active {
+                border-color: $color-theme;
+            }
+        }
+
+        textarea {
+            padding: 10px 0;
+        }
+
+        .tm-button {
+            margin-top: 15px;
+        }
+    }
+
+    &-map{
+        height: 566px;
+
+        #google-map{
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    @media #{$layout-tablet}{
+        &-map{
+            height: 350px;
+        }
+        &-formwrapper {
+            padding: 40px;
+        }
+    }
+
+    @media #{$layout-mobile-lg}{
+        &-block{
+            padding: 20px; 
+        }
+        &-icon {
+            height: 77px;
+            width: 77px;
+            line-height: 75px;
+            font-size: 27px;
+        }
+        &-formwrapper {
+            padding: 30px;
+        }
+        &-map{
+            height: 350px;
+        }
+    }
+
+    @media #{$layout-mobile-sm}{
+        &-formwrapper {
+            padding: 20px;
+        }
+        &-map{
+            height: 300px;
+        }
+    }
+}

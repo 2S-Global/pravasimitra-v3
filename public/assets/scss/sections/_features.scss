@@ -1,0 +1,252 @@
+/**
+ * Feature
+ */
+
+.features-area {
+    position: relative;
+}
+
+.feature-image {
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    max-height: 100%;
+}
+
+.features-slider-active {
+    margin-top: 28px;
+    margin-bottom: 28px;
+
+    &.slick-dotted {
+        margin-bottom: 30px;
+    }
+
+    .slick-list {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+// .features-slider-right{
+
+// }
+
+.features-slider-row {
+    display: flex !important;
+    justify-content: space-between;
+
+    .tm-feature {
+        margin: 5px 15px;
+        margin: 20px 15px;
+    }
+}
+
+.tm-feature {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 63px 35px;
+    background: #ffffff;
+
+    &-icon {
+        display: inline-block;
+        font-size: 60px;
+        margin-bottom: 28px;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    &:hover &-icon {
+        animation: rubberBand 0.5s ease-in-out 0s 1 both;
+    
+    }
+}
+
+@media #{$layout-desktop-xs} {
+    .feature-image {
+        left: 4%;
+    }
+}
+
+@media #{$layout-laptop} {
+    .features-slider-active {
+        margin-top: -20px;
+        margin-bottom: -20px;
+
+        &.slick-dotted {
+            margin-bottom: 40px;
+
+            ul.slick-dots {
+                top: calc(100% + 30px);
+            }
+        }
+    }
+
+    .feature-image {
+        left: 0;
+        max-width: 310px;
+    }
+}
+
+@media #{$layout-notebook} {
+    .features-slider-active {
+        margin-top: -20px;
+        margin-bottom: -20px;
+
+        &.slick-dotted {
+            margin-bottom: 40px;
+
+            ul.slick-dots {
+                top: calc(100% + 30px);
+            }
+        }
+    }
+
+    .tm-feature {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .feature-image {
+        display: none;
+    }
+}
+
+@media #{$layout-tablet} {
+    .features-slider-active {
+        margin-top: -20px;
+        margin-bottom: -20px;
+
+        &.slick-dotted {
+            margin-bottom: 40px;
+
+            ul.slick-dots {
+                top: calc(100% + 30px);
+            }
+        }
+    }
+
+    .features-slider-row {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .tm-feature {
+            flex: 0 0 45%;
+        }
+    }
+
+    .feature-image {
+        display: none;
+    }
+
+    .tm-feature {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+    }
+}
+
+@media #{$layout-mobile-lg} {
+    .features-slider-active {
+        margin-top: -20px;
+        margin-bottom: -20px;
+
+        &.slick-dotted {
+            margin-bottom: 40px;
+
+            ul.slick-dots {
+                top: calc(100% + 30px);
+            }
+        }
+    }
+
+    .features-slider-row {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .tm-feature {
+            flex: 0 0 44%;
+        }
+    }
+
+    .feature-image {
+        display: none;
+    }
+
+    .tm-feature {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px 15px;
+    }
+}
+
+@media #{$layout-mobile-sm} {
+    .features-slider-row {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .tm-feature {
+            flex: 0 0 95%;
+        }
+    }
+}
+
+/* Feature Style 2 */
+.feature-wrapper-2 {
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    padding: 35px 0;
+
+    [class^="col"] {
+        border-right: 1px solid $color-border;
+
+        &:nth-child(3n) {
+            border-right: none;
+        }
+    }
+}
+
+.tm-feature2 {
+    box-shadow: none;
+    padding: 25px 25px 20px 25px;
+
+    &-icon {
+        display: inline-block;
+        height: 92px;
+        width: 92px;
+        text-align: center;
+        line-height: 90px;
+        border-radius: 999px;
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+        font-size: 40px;
+        margin-bottom: 25px;
+        background: #ffffff;
+        transition: all 0.3s ease-in-out;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    &:hover &-icon {
+        background: $color-theme;
+        color: #ffffff;
+    }
+}
+
+@media #{$layout-tablet} {
+    .feature-wrapper-2 {
+        padding: 15px 0;
+
+        [class^="col"] {
+            border: none;
+        }
+    }
+}
+
+@media #{$layout-mobile-lg} {
+    .feature-wrapper-2 {
+        padding: 15px 0;
+
+        [class^="col"] {
+            border: none;
+        }
+    }
+}

@@ -1,0 +1,70 @@
+/**
+ * Brand Logo
+ */
+
+.brandlogo {
+  padding: 0 15px;
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    border: 1px solid $color-border;
+
+    &:hover {
+      border-color: $color-theme;
+    }
+  }
+}
+
+.brandlogo-slider {
+  background: #ffffff;
+  padding: 30px;
+
+  .slick-list {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  @media #{$layout-mobile-lg} {
+    padding: 20px;
+  }
+}
+
+.brandlogo-v4 {
+  padding: 0 15px;
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // min-height: 100px;
+
+    &:hover {
+      border-color: $color-theme;
+    }
+  }
+}
+
+.brandlogo-slider-v4 {
+  box-shadow: none !important;
+  background-color: none;
+  padding: 100px 0;
+  .slick-list {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  @media #{$layout-mobile-lg} {
+    padding: 20px;
+  }
+}
+
+.brandLogo {
+  background-image: url(../images/bg/brandlogo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background: #000;
+}

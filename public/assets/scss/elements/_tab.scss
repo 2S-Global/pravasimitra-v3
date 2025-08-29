@@ -1,0 +1,111 @@
+/**
+ * Tab
+ */
+
+.tm-tabgroup {
+    margin-bottom: 45px;
+
+    li {
+        margin-top: 1px;
+        margin-right: 1px;
+        
+        a {
+            display: inline-block;
+            height: $input-button-height;
+            line-height: $input-button-height - 2;
+            min-width: 170px;
+            text-align: center;
+            padding: 0 35px;
+            background: #ebebeb;
+            color: #333333;
+            font-size: 18px;
+            font-weight: 700;
+
+            &:hover {
+                color: $color-theme;
+            }
+
+            &.active {
+                background: $color-theme;
+                color: #ffffff;
+            }
+        }
+    }
+
+    @media #{$layout-mobile-lg} {
+        li {
+            a {
+                min-width: inherit;
+            }
+        }
+    }
+
+    @media #{$layout-mobile-sm} {
+        li {
+            a {
+                padding: 0 20px;
+            }
+        }
+    }
+}
+
+.tm-tabgroup2 {
+	padding-left: 0;
+	margin-bottom: 40px;
+	background: $color-grey;
+	padding: 15px 0;
+	text-align: center;
+	display: block;
+
+	li {
+		list-style: none;
+		display: inline-block;
+
+		&:not(:last-child) {
+			a {
+				border-right: 1px solid $color-border;
+			}
+		}
+
+		a {
+			color: $color-body;
+			font-size: 18px;
+			font-weight: 700;
+			text-transform: uppercase;
+			display: inline-block;
+			padding: 3px 20px;
+
+			&.active {
+				color: $color-theme;
+			}
+		}
+    }
+    
+    @media #{$layout-mobile-sm}{
+        li{
+            a{
+                padding: 3px 15px;
+            }
+        }
+    }
+}
+
+.tab-content {
+    width: 100%;
+
+    .tab-pane {
+        display: block;
+        height: 0;
+        max-width: 100%;
+        visibility: hidden;
+        overflow: hidden;
+        opacity: 0;
+
+        &.active {
+            height: auto;
+            visibility: visible;
+            opacity: 1;
+            overflow: visible
+        }
+    }
+}

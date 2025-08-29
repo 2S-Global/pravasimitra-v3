@@ -1,0 +1,49 @@
+/**
+ * Animations
+ */
+
+@keyframes tmGrowShrink {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes tmSpin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tmSpinReverse {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes tmAnimatedBg {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

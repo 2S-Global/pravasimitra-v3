@@ -1,0 +1,291 @@
+/**
+ * Portfolio
+ */
+
+.tm-portfolio {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    transition: all 0.3s ease-in-out 0s;
+
+    &-buttons {
+        font-size: 0;
+        margin-bottom: 7px;
+        margin-top: -5px;
+
+        button {
+            font-size: 16px;
+            font-weight: 600;
+            color: $color-body;
+            border: none;
+            height: auto;
+            line-height: 26px;
+            padding: 0;
+            margin: 0 13px;
+
+            &:hover,
+            &.is-active {
+                color: $color-theme;
+            }
+        }
+    }
+
+    &-image {
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(#000000, 0.7);
+            z-index: 2;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out 0s;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        &-slider {
+            position: relative;
+        }
+    }
+
+    &-video {
+        iframe {
+            border: none;
+            outline: none;
+        }
+    }
+
+    &-content {
+        background: #ffffff;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        padding: 15px 30px;
+        transform: translateY(100%);
+        transition: all 0.3s ease-in-out 0s;
+        z-index: 3;
+
+        h5 {
+            color: $color-heading;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 0;
+
+            a {
+                color: $color-heading;
+
+                &:hover {
+                    color: $color-theme;
+                }
+            }
+        }
+
+        h6 {
+            color: $color-body;
+            margin-bottom: 0;
+            font-weight: 400;
+
+            a {
+                color: $color-body;
+
+                &:hover {
+                    color: $color-theme;
+                }
+            }
+        }
+    }
+
+    &-actions {
+        padding-left: 0;
+        margin-bottom: 0;
+        position: absolute;
+        left: auto;
+        right: 0;
+        top: auto;
+        bottom: calc(100% + 2px);
+        font-size: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out 0.2s;
+        z-index: -1px;
+
+        li {
+            list-style: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-right: 2px;
+            vertical-align: middle;
+
+            a {
+                display: inline-block;
+                height: 30px;
+                width: 30px;
+                line-height: 30px;
+                text-align: center;
+                font-size: 16px;
+                color: $color-body;
+                background: #ffffff;
+                display: none;
+
+                &:first-child {
+                    display: block;
+                }
+
+                &:hover {
+                    background: $color-theme;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    &:hover &-image {
+        &::before {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &:hover &-content {
+        transform: translateY(0);
+    }
+
+    &:hover &-actions {
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &.tm-portfolio-2 {
+        .zoom-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 9;
+            transform: translate(-50%, -50%);
+            transition: $transition;
+            visibility: hidden;
+            opacity: 0;
+
+            a {
+                color: rgba(#ffffff, 0.5);
+                font-size: 60px;
+                display: none;
+
+                &:first-child {
+                    display: block;
+                }
+            }
+        }
+
+        &:hover .zoom-button {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+
+
+/* Portfolio Details */
+.tm-portfoliodetails {
+    &-image {
+        img {
+            width: 100%;
+        }
+    }
+
+    &-info {
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(#000000, 0.1);
+
+        &>ul {
+            padding-left: 0;
+            margin-bottom: 0;
+
+            &>li {
+                list-style: none;
+                font-size: 16px;
+
+                &:not(:last-child) {
+                    margin-bottom: 15px;
+                }
+
+                b {
+                    font-weight: 700;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .tm-rating {
+            display: inline-block;
+        }
+    }
+
+    &-share {
+        display: inline-block;
+        padding-left: 0;
+        margin-bottom: 0;
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 10px;
+
+            a {
+                display: inline-block;
+                vertical-align: middle;
+                color: $color-body;
+
+                &:hover {
+                    color: $color-theme;
+                }
+            }
+        }
+    }
+
+    &-description {
+        h3 {
+            font-weight: 700;
+            margin-top: -6px;
+        }
+
+        ul {
+            margin-bottom: 0;
+        }
+    }
+
+    @media #{$layout-tablet} {
+        &-description {
+            padding-top: 40px;
+        }
+    }
+
+    @media #{$layout-mobile-lg} {
+        &-description {
+            padding-top: 40px;
+        }
+    }
+
+    @media #{$layout-mobile-sm} {
+        &-info {
+            padding: 20px;
+        }
+    }
+}

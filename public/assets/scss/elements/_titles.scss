@@ -1,0 +1,105 @@
+/**
+ * Title
+ */
+
+.tm-section-title {
+    margin-bottom: 60px;
+
+    h2, h3 {
+        font-weight: 700;
+        font-size: 40px;
+
+        &::before,
+        &::after {
+            color: $color-theme;
+            font-weight: 400;
+        }
+
+        &::before {
+            content: "[";
+            padding-right: 10px;
+        }
+
+        &:after {
+            content: "]";
+            padding-left: 10px;
+        }
+    }
+
+    h3{
+        font-size: 32px;
+        line-height: 42px;
+    }
+
+    &.text-center {
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+
+
+    @media #{$layout-notebook} {
+        margin-bottom: 50px;
+
+        &.text-center {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    @media #{$layout-tablet} {
+        margin-bottom: 45px;
+
+        h2 {
+            font-size: 34px;
+        }
+
+        &.text-center {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    @media #{$layout-mobile-lg} {
+        margin-bottom: 40px;
+
+        h2 {
+            font-size: 30px;
+        }
+
+        &.text-center {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    @media #{$layout-mobile-xs} {
+
+        h2{
+            font-size: 28px;
+        }
+
+        &.text-center {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+
+.small-title {
+    position: relative;
+    padding-bottom: 15px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    margin-top: -5px;
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 70px;
+        background: $color-theme;
+    }
+}

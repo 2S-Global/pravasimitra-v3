@@ -1,0 +1,13 @@
+/* Login.module.css */
+.loginInput:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000 !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.loginInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.15rem rgba(255, 45, 29, 0.25);
+  border-color: #FF2D1D;
+}

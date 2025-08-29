@@ -1,0 +1,103 @@
+/**
+ * Faq Area
+ */
+
+.tm-faq {
+    &-image {
+        text-align: center;
+    }
+
+    @media #{$layout-tablet} {
+        &-image {
+            margin-bottom: 50px;
+        }
+    }
+
+    @media #{$layout-mobile-lg} {
+        &-image {
+            margin-bottom: 40px;
+        }
+    }
+
+    @media #{$layout-mobile-sm} {
+        &-image {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+/* Accordion Styles */
+.tm-accordion {
+
+    .card {
+        border: none;
+        background: transparent;
+    }
+
+    .card-header {
+        padding: 0;
+        background: transparent;
+        border: 0;
+
+        button {
+            height: auto;
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 8px 0;
+            padding-left: 47px;
+            font-size: 18px;
+            font-family: $ff-heading;
+            color: $color-heading;
+            line-height: 28px;
+            font-weight: 500;
+            text-decoration: none !important;
+            border: 0;
+            border-bottom: 1px solid $color-border;
+            position: relative;
+            white-space: inherit;
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 14px;
+                height: 17px;
+                width: 17px;
+                background-image: url(../images/icons/accordio-plus.png);
+                background-repeat: no-repeat;
+                background-attachment: scroll;
+                background-position: center center;
+                background-size: cover;
+            }
+
+            &.collapsed {
+                &::before {
+                    background-image: url(../images/icons/accordio-plus.png);
+                }
+            }
+
+            &:not(.collapsed) {
+                &:before {
+                    background-image: url(../images/icons/accordio-minus.png);
+                }
+            }
+        }
+    }
+
+    .card-body {
+        padding: 30px 0 0 45px;
+    }
+
+    @media #{$layout-mobile-sm} {
+        .card-header {
+            button {
+                padding-left: 35px;
+            }
+        }
+
+        .card-body {
+            padding-left: 35px;
+        }
+    }
+}

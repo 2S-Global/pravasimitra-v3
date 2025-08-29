@@ -1,0 +1,224 @@
+/**
+ * Team Member
+ */
+
+.tm-member {
+  &-top {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.5) -1.23%,
+        rgba(0, 0, 0, 0) 113.86%
+      );
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s ease-in-out 0.1s;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-social {
+    position: absolute;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease-in-out 0.1s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      border-style: solid;
+      border-width: 0 35px 60px 35px;
+      border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
+      z-index: -1;
+    }
+
+    ul {
+      padding-left: 0;
+      margin-bottom: 0;
+
+      li {
+        list-style: none;
+        margin: 0 15px;
+        display: inline-block;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          font-size: 18px;
+          color: #ffffff;
+
+          &:hover {
+            color: $color-theme;
+          }
+        }
+      }
+    }
+  }
+  &-socialv4 {
+    position: absolute;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease-in-out 0.1s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      // border-style: solid;
+      // border-width: 0 35px 60px 35px;
+      border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
+      z-index: -1;
+    }
+
+    ul {
+      padding-left: 0;
+      margin-bottom: 0;
+
+      li {
+        list-style: none;
+        margin-right: 1px;
+        width: 35px;
+        height: 35px;
+        display: inline-block;
+        background: rgb(255, 255, 255);
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+        &:hover {
+          background: $color-theme;
+          color: #ffffff;
+        }
+        &:hover a {
+          color: #ffffff;
+        }
+
+        a {
+          width: 35px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          color: #333333;
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    text-align: center;
+    padding-top: 25px;
+
+    h5 {
+      font-size: $fz-heading-4;
+      line-height: $lh-heading-6;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: $fz-heading-6;
+      line-height: $lh-heading-7;
+      margin-bottom: 0;
+    }
+  }
+
+  &:hover &-top {
+    &::before {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &:hover &-social {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover &-socialv4 {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media #{$layout-notebook} {
+    &-social {
+      ul {
+        li {
+          margin: 0 10px;
+        }
+      }
+    }
+    &-bottom {
+      padding: 15px;
+    }
+  }
+
+  @media #{$layout-mobile-lg} {
+    &-social {
+      ul {
+        li {
+          margin: 0 10px;
+        }
+      }
+    }
+    &-bottom {
+      padding: 15px;
+    }
+  }
+}

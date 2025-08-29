@@ -1,0 +1,102 @@
+/**
+ * Pricebox
+ */
+
+.tm-pricebox {
+    padding: 45px;
+    text-align: center;
+    transition: all 0.3s ease-in-out 0s;
+
+    &-header {
+        h5 {
+            margin-top: -5px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 35px;
+        }
+    }
+
+    &-price {
+        display: inline-block;
+        border-bottom: 1px solid $color-border;
+
+        h6 {
+            font-family: $ff-body;
+            line-height: 1;
+
+            span {
+                font-size: 48px;
+                font-family: $ff-heading;
+                line-height: 1;
+                font-weight: 700;
+
+                sup {
+                    font-family: $ff-body;
+                    font-weight: 500;
+                    line-height: 1;
+                    vertical-align: baseline;
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+
+    &-body {
+        margin-top: 15px;
+
+        ul {
+            padding-left: 0;
+            margin-bottom: 0;
+
+            li {
+                list-style: none;
+                padding: 10px 0;
+                line-height: 25px;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-border;
+                }
+            }
+        }
+    }
+
+    &-footer {
+        margin-top: 15px;
+
+        .tm-button {
+            padding: 0 25px;
+        }
+    }
+
+    &.is-active {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    &.is-active &-price {
+        span {
+            color: $color-theme;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media #{$layout-notebook}{
+        padding: 45px 30px;
+    }
+
+    @media #{$layout-tablet}{
+        padding: 45px 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media #{$layout-mobile-lg}{
+        padding: 45px 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media #{$layout-mobile-xs}{
+        padding: 45px 20px;
+    }
+}

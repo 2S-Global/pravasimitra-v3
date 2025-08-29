@@ -1,0 +1,266 @@
+/**
+ * Why Choose
+ */
+
+.whychoose {
+  &-content {
+    margin-top: -7px;
+    // padding-right: 30px;
+    font-family: $ff-heading;
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin: 0 0 20px 0;
+    }
+
+    h2 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    h6 {
+      font-size: 18px;
+      font-weight: 400;
+      margin-top: 20px;
+    }
+    h5 {
+      font-size: $fz-heading-4;
+      margin: 0 0 10px 0;
+      line-height: $fz-heading-4;
+    }
+    img {
+      min-width: 50px;
+      margin-right: 28px;
+      // object-fit: cover;
+    }
+    div {
+    }
+
+    & > p {
+      margin-top: 20px;
+      font-family: $ff-body;
+      margin-bottom: 40px;
+    }
+    p {
+      font-family: $ff-body;
+      letter-spacing: 0.1px;
+    }
+
+    .whychoose-image {
+      &-image {
+        position: relative;
+        padding: 0 40px;
+      }
+      img {
+        min-width: 1200px;
+      }
+
+      .tm-videobutton {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .tm-videobutton {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &-contentv4 {
+    // margin-top: -7px;
+    // padding-right: 30px;
+    font-family: $ff-heading;
+    h2 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 50px;
+      line-height: 59px;
+      font-weight: 700;
+      margin: 0 auto 4px auto;
+    }
+
+    h6 {
+      font-size: 18px;
+      font-weight: 400;
+      margin-top: 20px;
+    }
+    h5 {
+      font-size: $fz-heading-4;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      line-height: $lh-heading-6;
+    }
+    & > p {
+      margin: 0px auto 40px auto;
+      font-family: $ff-body;
+      font-size: 16px;
+      line-height: 27px;
+      // margin-bottom:40px ;
+    }
+    // p {
+    //   margin: 0px auto 32px auto;
+    //   font-family: $ff-body;
+    //   font-size: 16px;
+    //   line-height: 27px;
+    // }
+    img {
+      min-width: 50px;
+      margin-right: 28px;
+      // object-fit: cover;
+    }
+
+    .whychoose-image {
+      &-image {
+        position: relative;
+        padding: 0 40px;
+      }
+      img {
+        min-width: 1200px;
+      }
+
+      .tm-videobutton {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .tm-videobutton {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-box {
+    p {
+      margin: 0px auto 32px auto;
+      font-size: $fz-body-2;
+      line-height: $lh-body-2;
+      color: $color-body;
+      font-weight: 400;
+      font-family: $ff-body;
+    }
+  }
+
+  &-block {
+    position: relative;
+    padding-left: 65px;
+    margin-right: 75px;
+    margin-top: 25px;
+
+    h5 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  &-icon {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    color: $color-theme;
+    font-size: 40px;
+  }
+
+  &-chart {
+    margin-top: -7px;
+
+    h2 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+  }
+
+  @media #{$layout-notebook} {
+    &-content {
+      padding-right: 0;
+
+      h1 {
+        font-size: 38px;
+      }
+
+      h2 {
+        font-size: 38px;
+      }
+    }
+
+    &-block {
+      margin-right: 45px;
+    }
+
+    &-chart {
+      h2 {
+        font-size: 38px;
+      }
+    }
+  }
+
+  @media #{$layout-tablet} {
+    &-content {
+      padding-right: 0;
+      h1 {
+        font-size: 36px;
+
+        line-height: 46px;
+      }
+
+      h2 {
+        font-size: 36px;
+        line-height: 46px;
+      }
+    }
+
+    &-chart {
+      margin-top: 50px;
+
+      h2 {
+        font-size: 36px;
+      }
+    }
+  }
+
+  @media #{$layout-mobile-lg} {
+    &-content {
+      padding-right: 0;
+      h1 {
+        font-size: 32px;
+
+        line-height: 46px;
+      }
+
+      h2 {
+        font-size: 32px;
+        line-height: 42px;
+      }
+
+      h6 {
+        font-size: 16px;
+      }
+    }
+    &-chart {
+      margin-top: 40px;
+
+      h2 {
+        font-size: 32px;
+        line-height: 42px;
+      }
+    }
+  }
+
+  @media #{$layout-mobile-sm} {
+    &-block {
+      margin-right: 0;
+    }
+  }
+}

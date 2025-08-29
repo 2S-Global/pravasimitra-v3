@@ -1,0 +1,8 @@
+.checkoutWrapper :global(.form-check-input) {
+  transform: scale(0.8);
+  transform-origin: center;
+  cursor: pointer;
+
+  position: relative;
+  top: -2px;   /* move it a little up, adjust value as needed */
+}

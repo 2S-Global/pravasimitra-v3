@@ -75,22 +75,22 @@ export default function PaymentSuccessPage() {
     saveTransactionAndCheckout();
   }, []);
 
-  // ✅ Start countdown only when orderData is set (success case)
-  useEffect(() => {
-    if (orderData && !error) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            router.push("/user/orders");
-          }
-          return prev - 1;
-        });
-      }, 1000);
+useEffect(() => {
+  if (orderData && !error) {
+    const timer = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
 
-      return () => clearInterval(timer);
-    }
-  }, [orderData, error, router]);
+    return () => clearInterval(timer);
+  }
+}, [orderData, error]);
+
+// Redirect effect when countdown hits 0
+useEffect(() => {
+  if (countdown === 0) {
+    router.push("/user/orders");
+  }
+}, [countdown, router]);
 
   const goToOrders = () => router.push("/user/orders");
 if (loading)

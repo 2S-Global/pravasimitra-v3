@@ -5,6 +5,7 @@ import { addCorsHeaders, optionsResponse } from "../../../../lib/cors";
 import Order from "../../../../models/Order";
 import User from "../../../../models/User";
 import Address from "../../../../models/Address";
+import MarketProduct from "../../../../models/MarketProduct";
 import { encodeObjectId } from "../../../../lib/idCodec";
 
 export async function OPTIONS() {

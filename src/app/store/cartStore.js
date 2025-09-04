@@ -9,8 +9,8 @@ export const useCartStore = create(
 
       setCart: (cart) =>
         set({
-          cartItems: cart.items,
-          totalQuantity: cart.items.length,
+          cartItems: cart?.items,
+          totalQuantity: cart?.items?.length ||0,
         }),
 
       clearCart: () =>

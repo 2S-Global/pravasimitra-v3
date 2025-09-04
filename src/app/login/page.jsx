@@ -25,6 +25,12 @@ const Login = () => {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(identifier)) {
+      AlertService.error("Please enter a valid email address.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.post(
@@ -87,14 +93,18 @@ const Login = () => {
                     />
                   </div>
                   <div className="col-md-6 col-lg-7 d-flex align-items-center">
-                    <div className="card-body p-4 p-lg-5 text-black" style={{ boxShadow: "0px 4px 8px white" }}>
+                    <div
+                      className="card-body p-4 p-lg-5 text-black"
+                      style={{ boxShadow: "0px 4px 8px white" }}
+                    >
                       <form>
                         <div className="d-flex align-items-center mb-3 pb-1">
-                          <i
-                            className="fas fa-cubes fa-2x me-3"
-                            style={{ color: "#ff6219" }}
-                          />
-                          <span className="h1 fw-bold mb-0">Logo</span>
+                          <img
+                    src="/assets/images/logo/logo-dark.png"
+                    alt="logo"
+                    style={{ maxWidth: "8%" }}
+                  />
+                          <span className="h1 fw-bold mb-0 ml-3" style={{ color:"#264293" }}>Pravasi Mitra</span>
                         </div>
                         <h5
                           className="fw-normal mb-3 pb-3"
@@ -108,7 +118,7 @@ const Login = () => {
                         >
                           <input
                             type="email"
-                className={`form-control form-control-md ${styles.loginInput}`}
+                            className={`form-control form-control-md ${styles.loginInput}`}
                             placeholder="Email Addresss"
                             value={identifier}
                             onChange={(e) => setIdentifier(e.target.value)}
@@ -121,7 +131,7 @@ const Login = () => {
                         >
                           <input
                             type="password"
-                          className={`form-control form-control-md ${styles.loginInput}`}
+                            className={`form-control form-control-md ${styles.loginInput}`}
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

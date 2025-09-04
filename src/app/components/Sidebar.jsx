@@ -97,6 +97,12 @@ const Sidebar = () => {
               <i className="fa fa-map-marker-alt" /> Location Settings
             </Link>
           </li>
+
+             <li>
+            <Link href="/user/upgrade-membership">
+              <i className="fa fa-arrow-up" /> Upgrade Membership
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

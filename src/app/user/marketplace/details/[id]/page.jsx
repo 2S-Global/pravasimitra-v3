@@ -283,6 +283,7 @@ const ProductDetails = () => {
                         background: "#c12020",
                         color: "#fff",
                         border: "#c12020",
+                        cursor:"auto"
                       }}
                     >
                       Description

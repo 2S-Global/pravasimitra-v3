@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import OtherBanner from "@/app/components/OtherBanner";
 import Link from "next/link";
 import AlertService from "@/app/components/alertService"; // your alert service
+import axios from "axios";
+import styles from "./Register.module.css";
+import { validatePhone } from "../utils/phoneValidation";
 
 const Register = () => {
   const router = useRouter();
@@ -15,10 +18,75 @@ const Register = () => {
     email: "",
     mobile: "",
     password: "",
+    currentCountry: "",
+    currentCity: "",
+    destinationCountry: "",
+    destinationCity: "",
   });
 
+  const [countries, setCountries] = useState([]);
+  const [currentCities, setCurrentCities] = useState([]);
+  const [destinationCities, setDestinationCities] = useState([]);
+  const [loadingCountries, setLoadingCountries] = useState(true);
+  const [loadingCities, setLoadingCities] = useState(false);
+
+  const fetchCountries = async () => {
+    try {
+      setLoadingCountries(true);
+      const res = await axios.get("/api/location/list-country");
+      if (Array.isArray(res.data?.items)) {
+        setCountries(res.data.items);
+      }
+    } catch (err) {
+      console.error("Error fetching countries:", err);
+    } finally {
+      setLoadingCountries(false);
+    }
+  };
+
+  const fetchCities = async (countryId, type) => {
+    if (!countryId) return;
+    try {
+      setLoadingCities(true);
+      const res = await axios.post("/api/location/get-city", { countryId });
+      if (Array.isArray(res.data?.items)) {
+        if (type === "current") {
+          setCurrentCities(res.data.items);
+        }
+        if (type === "destination") {
+          setDestinationCities(res.data.items);
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching cities:", err);
+    } finally {
+      setLoadingCities(false);
+    }
+  };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  let { name, value } = e.target;
+
+  // ✅ Restrict mobile input: only digits and +
+  if (name === "mobile") {
+    value = value.replace(/[^0-9+]/g, ""); // removes everything except numbers and +
+  }
+
+  setForm((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "currentCountry") {
+      setForm((prev) => ({ ...prev, currentCity: "" }));
+      setCurrentCities([]);
+      if (value) fetchCities(value, "current");
+    }
+
+    if (name === "destinationCountry") {
+      setForm((prev) => ({ ...prev, destinationCity: "" }));
+      setDestinationCities([]);
+      if (value) fetchCities(value, "destination");
+    }
+
+
   };
 
   const validateForm = () => {
@@ -46,10 +114,11 @@ const Register = () => {
       AlertService.error("Mobile number is required");
       return false;
     }
-    if (!mobileRegex.test(form.mobile)) {
-      AlertService.error("Mobile number must be 10 digits");
-      return false;
-    }
+const phoneCheck = validatePhone(form.mobile);
+if (!phoneCheck.ok) {
+  AlertService.error(phoneCheck.error || "Invalid mobile number");
+  return false;
+}
     if (!form.password) {
       AlertService.error("Password is required");
       return false;
@@ -58,41 +127,49 @@ const Register = () => {
       AlertService.error("Password must be at least 6 characters");
       return false;
     }
+
+    if (!form.currentCountry || !form.currentCity)
+      return AlertService.error("Current Country & City are required");
+    if (!form.destinationCountry || !form.destinationCity)
+      return AlertService.error("Destination Country & City are required");
     return true;
   };
 
-const handleNext = async () => {
-  if (!validateForm()) return;
+  const handleNext = async () => {
+    if (!validateForm()) return;
 
-  try {
-    const res = await fetch(`/api/auth/check-email`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: form.email }),
-    });
+    try {
+      const res = await fetch(`/api/auth/check-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      AlertService.error(data.message || 'Server error, try again later');
-      return;
+      if (!res.ok) {
+        AlertService.error(data.message || "Server error, try again later");
+        return;
+      }
+
+      if (data.success === false) {
+        // Email already exists
+        AlertService.error(data.msg || "Email is already registered");
+        return;
+      }
+
+      // ✅ If email does not exist → save and go next
+      sessionStorage.setItem("registerData", JSON.stringify(form));
+      router.push("/register-final");
+    } catch (err) {
+      AlertService.error("Something went wrong, please try again later.");
+      console.error(err);
     }
+  };
 
-    if (data.success === false) {
-      // Email already exists
-      AlertService.error(data.msg || 'Email is already registered');
-      return;
-    }
-
-    // ✅ If email does not exist → save and go next
-    sessionStorage.setItem("registerData", JSON.stringify(form));
-    router.push("/register-final");
-
-  } catch (err) {
-    AlertService.error("Something went wrong, please try again later.");
-    console.error(err);
-  }
-};
+  useEffect(() => {
+    fetchCountries();
+  }, []);
 
   return (
     <>
@@ -151,14 +228,8 @@ const handleNext = async () => {
                         id="mobile"
                         value={form.mobile}
                         onChange={handleChange}
-                        maxLength={10} // restrict maximum length to 10
-                        onKeyPress={(e) => {
-                          // Allow only digits
-                          const regex = /^[0-9]$/;
-                          if (!regex.test(e.key)) {
-                            e.preventDefault();
-                          }
-                        }}
+                        placeholder="e.g. +919876543210"
+                        className={styles.inputField}
                       />
                     </div>
 
@@ -175,6 +246,104 @@ const handleNext = async () => {
                       />
                     </div>
 
+                    {/* Country & City dropdowns */}
+                    {/* Country & City dropdowns */}
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="tm-form-field">
+                          <label htmlFor="currentCountry">
+                            Current Country{" "}
+                            <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <select
+                            id="currentCountry"
+                            name="currentCountry"
+                            value={form.currentCountry}
+                            onChange={handleChange}
+                            required
+                            disabled={loadingCountries}
+                          >
+                            <option value="">-- Select Country --</option>
+                            {countries.map((country) => (
+                              <option key={country._id} value={country._id}>
+                                {country.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6">
+                        <div className="tm-form-field">
+                          <label htmlFor="currentCity">
+                            Current City <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <select
+                            id="currentCity"
+                            name="currentCity"
+                            value={form.currentCity}
+                            onChange={handleChange}
+                            required
+                            disabled={!form.currentCountry || loadingCities}
+                          >
+                            <option value="">-- Select City --</option>
+                            {currentCities.map((city) => (
+                              <option key={city._id} value={city._id}>
+                                {city.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6">
+                        <div className="tm-form-field">
+                          <label htmlFor="destinationCountry">
+                            Destination Country{" "}
+                            <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <select
+                            id="destinationCountry"
+                            name="destinationCountry"
+                            value={form.destinationCountry}
+                            onChange={handleChange}
+                            required
+                            disabled={loadingCountries}
+                          >
+                            <option value="">-- Select Country --</option>
+                            {countries.map((country) => (
+                              <option key={country._id} value={country._id}>
+                                {country.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6">
+                        <div className="tm-form-field">
+                          <label htmlFor="destinationCity">
+                            Destination City{" "}
+                            <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <select
+                            id="destinationCity"
+                            name="destinationCity"
+                            value={form.destinationCity}
+                            onChange={handleChange}
+                            required
+                            disabled={!form.destinationCountry || loadingCities}
+                          >
+                            <option value="">-- Select City --</option>
+                            {destinationCities.map((city) => (
+                              <option key={city._id} value={city._id}>
+                                {city.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                     <div className="tm-form-field">
                       <button
                         type="button"

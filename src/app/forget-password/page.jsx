@@ -87,7 +87,12 @@ const router = useRouter(); // ✅ initialize router
                     alt="logo"
                     style={{ maxWidth: "8%" }}
                   />
-                          <span className="h1 fw-bold mb-0">Pravasi Mitra</span>
+               <span
+                            className="h1 fw-bold mb-0 ml-3"
+                            style={{ color: "#264293" }}
+                          >
+                            Pravasi Mitra
+                          </span>
                         </div>
 
                         <h5

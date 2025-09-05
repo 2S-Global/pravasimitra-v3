@@ -137,25 +137,25 @@ const Login = () => {
                           className="form-outline mb-4 position-relative"
                         >
                           <input
-                             type={showPassword ? "text" : "password"}
+                            type={showPassword ? "text" : "password"}
                             className={`form-control form-control-md ${styles.loginInput}`}
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="off"
                           />
-              <button
-  type="button"
-  onClick={() => setShowPassword(!showPassword)}
-  className="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2"
-  style={{ textDecoration: "none" }}
->
-  {showPassword ? (
-    <EyeOff size={20} color="#555" />
-  ) : (
-    <Eye size={20} color="#555" />
-  )}
-</button>
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2"
+                            style={{ textDecoration: "none" }}
+                          >
+                            {showPassword ? (
+                              <EyeOff size={20} color="#555" />
+                            ) : (
+                              <Eye size={20} color="#555" />
+                            )}
+                          </button>
                         </div>
                         <div className="mb-4">
                           <button

@@ -82,11 +82,12 @@ const router = useRouter(); // ✅ initialize router
                     <div className="card-body p-4 p-lg-5 text-black"   style={{ boxShadow: "0px 4px 8px white" }}>
                       <form onSubmit={handleSubmit}>
                         <div className="d-flex align-items-center mb-3 pb-1">
-                          <i
-                            className="fas fa-cubes fa-2x me-3"
-                            style={{ color: "#ff6219" }}
-                          />
-                          <span className="h1 fw-bold mb-0">Logo</span>
+                                  <img
+                    src="/assets/images/logo/logo-dark.png"
+                    alt="logo"
+                    style={{ maxWidth: "8%" }}
+                  />
+                          <span className="h1 fw-bold mb-0">Pravasi Mitra</span>
                         </div>
 
                         <h5

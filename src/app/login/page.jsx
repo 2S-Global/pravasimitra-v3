@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
 import { useCartStore } from "@/app/store/cartStore";
 import styles from "./Login.module.css";
+import { Eye, EyeOff } from "lucide-react";
 const Login = () => {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,7 @@ const Login = () => {
   const router = useRouter();
   const { setCart } = useCartStore();
   const { setLoggedIn } = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
   const handleLogin = async () => {
     if (!identifier || !password) {
       AlertService.error("Please fill in both email and password.");
@@ -100,11 +102,16 @@ const Login = () => {
                       <form>
                         <div className="d-flex align-items-center mb-3 pb-1">
                           <img
-                    src="/assets/images/logo/logo-dark.png"
-                    alt="logo"
-                    style={{ maxWidth: "8%" }}
-                  />
-                          <span className="h1 fw-bold mb-0 ml-3" style={{ color:"#264293" }}>Pravasi Mitra</span>
+                            src="/assets/images/logo/logo-dark.png"
+                            alt="logo"
+                            style={{ maxWidth: "8%" }}
+                          />
+                          <span
+                            className="h1 fw-bold mb-0 ml-3"
+                            style={{ color: "#264293" }}
+                          >
+                            Pravasi Mitra
+                          </span>
                         </div>
                         <h5
                           className="fw-normal mb-3 pb-3"
@@ -127,16 +134,28 @@ const Login = () => {
                         </div>
                         <div
                           data-mdb-input-init=""
-                          className="form-outline mb-4"
+                          className="form-outline mb-4 position-relative"
                         >
                           <input
-                            type="password"
+                             type={showPassword ? "text" : "password"}
                             className={`form-control form-control-md ${styles.loginInput}`}
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="off"
                           />
+              <button
+  type="button"
+  onClick={() => setShowPassword(!showPassword)}
+  className="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2"
+  style={{ textDecoration: "none" }}
+>
+  {showPassword ? (
+    <EyeOff size={20} color="#555" />
+  ) : (
+    <Eye size={20} color="#555" />
+  )}
+</button>
                         </div>
                         <div className="mb-4">
                           <button

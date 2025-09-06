@@ -10,6 +10,8 @@ import AlertService from "@/app/components/alertService"; // your alert service
 import axios from "axios";
 import styles from "./Register.module.css";
 import { validatePhone } from "../utils/phoneValidation";
+import { Eye, EyeOff } from "lucide-react";
+
 
 const Register = () => {
   const router = useRouter();
@@ -29,6 +31,7 @@ const Register = () => {
   const [destinationCities, setDestinationCities] = useState([]);
   const [loadingCountries, setLoadingCountries] = useState(true);
   const [loadingCities, setLoadingCities] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const fetchCountries = async () => {
     try {
@@ -65,14 +68,14 @@ const Register = () => {
   };
 
   const handleChange = (e) => {
-  let { name, value } = e.target;
+    let { name, value } = e.target;
 
-  // ✅ Restrict mobile input: only digits and +
-  if (name === "mobile") {
-    value = value.replace(/[^0-9+]/g, ""); // removes everything except numbers and +
-  }
+    // ✅ Restrict mobile input: only digits and +
+    if (name === "mobile") {
+      value = value.replace(/[^0-9+]/g, ""); // removes everything except numbers and +
+    }
 
-  setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
 
     if (name === "currentCountry") {
       setForm((prev) => ({ ...prev, currentCity: "" }));
@@ -85,8 +88,6 @@ const Register = () => {
       setDestinationCities([]);
       if (value) fetchCities(value, "destination");
     }
-
-
   };
 
   const validateForm = () => {
@@ -114,11 +115,11 @@ const Register = () => {
       AlertService.error("Mobile number is required");
       return false;
     }
-const phoneCheck = validatePhone(form.mobile);
-if (!phoneCheck.ok) {
-  AlertService.error(phoneCheck.error || "Invalid mobile number");
-  return false;
-}
+    const phoneCheck = validatePhone(form.mobile);
+    if (!phoneCheck.ok) {
+      AlertService.error(phoneCheck.error || "Invalid mobile number");
+      return false;
+    }
     if (!form.password) {
       AlertService.error("Password is required");
       return false;
@@ -228,22 +229,36 @@ if (!phoneCheck.ok) {
                         id="mobile"
                         value={form.mobile}
                         onChange={handleChange}
-                        placeholder="e.g. +919876543210"
+                        placeholder="e.g. +14844578433"
                         className={styles.inputField}
                       />
                     </div>
 
-                    <div className="tm-form-field">
+                    <div className="tm-form-field position-relative">
                       <label htmlFor="password">
                         Password <span style={{ color: "red" }}>*</span>
                       </label>
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         id="password"
                         value={form.password}
                         onChange={handleChange}
+                        style={{ height: "45px" }}
                       />
+
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="btn btn-link position-absolute  end-0 translate-middle-y px-2"
+                        style={{ textDecoration: "none", top: "45px" }}
+                      >
+                        {showPassword ? (
+                          <EyeOff size={20} color="#555" />
+                        ) : (
+                          <Eye size={20} color="#555" />
+                        )}
+                      </button>
                     </div>
 
                     {/* Country & City dropdowns */}

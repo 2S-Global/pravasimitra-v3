@@ -14,34 +14,46 @@ export default function RegisterFinalPage() {
   const [packages, setPackages] = useState([]);
   const [loadingPlans, setLoadingPlans] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [countryId,setCountryId]=useState("");  
 
-  useEffect(() => {
-    const storedData = sessionStorage.getItem('registerData');
-    if (!storedData) {
-      // Redirect to registration page if no data
-      router.push('/register');
-      return;
-    }
-    setUserData(JSON.parse(storedData));
 
-    const fetchPlans = async () => {
-      try {
-        const { data } = await axios.get(`/api/membership/list-plan`);
-        if (data.success) {
-          setPackages(data.data);
-        } else {
-          AlertService.error('Failed to load membership plans');
-        }
-      } catch (error) {
-        console.error(error);
-        AlertService.error('Something went wrong while fetching plans');
-      } finally {
-        setLoadingPlans(false);
+useEffect(() => {
+  const storedData = sessionStorage.getItem('registerData');
+  if (!storedData) {
+    // Redirect to registration page if no data
+    router.push('/register');
+    return;
+  }
+
+  const parsedData = JSON.parse(storedData);
+  // console.log(parsedData);
+
+  // ✅ Now extract countryId correctly
+  const currentCountry = parsedData.currentCountry;
+  setCountryId(currentCountry);
+  setUserData(parsedData);
+
+  const fetchPlans = async () => {
+    try {
+      const { data } = await axios.get(`/api/membership/list-plan?countryId=${currentCountry}`);
+      if (data.success) {
+        setPackages(data.data);
+      } else {
+        AlertService.error('Failed to load membership plans');
       }
-    };
+    } catch (error) {
+      console.error(error);
+      AlertService.error('Something went wrong while fetching plans');
+    } finally {
+      setLoadingPlans(false);
+    }
+  };
 
+  if (currentCountry) {
     fetchPlans();
-  }, [router]);
+  }
+}, [router]);
+
 
   const handleSelect = async (pkg) => {
     setLoading(true);
@@ -54,11 +66,13 @@ export default function RegisterFinalPage() {
       const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND; 
       const successUrl = `${FRONTEND_URL}/payment-successMembership?session_id={CHECKOUT_SESSION_ID}`;
       const cancelUrl = `${FRONTEND_URL}/payment-cancelled`;
-
-      const { data } = await axios.post(`/api/membership-payment`, {
+     const currencyName= pkg.currencyName;
+      const { data } = await axios.post(`/api/membership-payment-register`, {
         cartItems: [{ title: pkg.name, price: pkg.price, quantity: 1 }],
         successUrl,
-        cancelUrl
+        cancelUrl,
+        currencyName,
+        countryId
       });
 
       if (!data || !data.url) throw new Error(data?.error || 'Unable to start payment process');
@@ -109,7 +123,7 @@ export default function RegisterFinalPage() {
                     <div className="card-body d-flex flex-column">
                       <h4 className="fw-bold text-primary">{pkg.name}</h4>
                       <h2 className="fw-bold mt-2 mb-3">
-                        £{pkg.price}{' '}
+                       {pkg.currency}{pkg.price}{' '}
                         <small className="fs-6 text-muted">/ {pkg.durationInDays} days</small>
                       </h2>
                       <ul className="list-unstyled mt-3 mb-4 flex-grow-1">

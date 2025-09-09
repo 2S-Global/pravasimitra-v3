@@ -73,7 +73,7 @@ const ChangePassword = () => {
       <section className="tm-section tm-login-register-area bg-white tm-padding-section">
         <div className="container">
           <div className="row col-md-12">
-            <Sidebar />
+            <Sidebar showLoader={false} />
 
             <div className="col-md-9">
               <form

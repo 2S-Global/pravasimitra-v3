@@ -153,7 +153,7 @@ const MyAccount = () => {
       <div className="tm-section tm-login-register-area bg-white tm-padding-section">
         <div className="container">
           <div className="row col-md-12">
-            <Sidebar />
+            <Sidebar showLoader={false} />
 
             <div className="profile-info col-md-9">
               {loading ? (
@@ -185,7 +185,7 @@ const MyAccount = () => {
                       <div className="col-md-4">
                         <div className="tm-form-field">
                           <label htmlFor="name">
-                            Name <span className="text-danger">*</span>
+                            Full Name <span className="text-danger">*</span>
                           </label>
                           <input
                             type="text"

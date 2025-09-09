@@ -6,11 +6,11 @@ import useUserStore from "@/app/store/useUserStore";
 import AlertService from "@/app/components/alertService";
 import { Cursor } from "mongoose";
 
-const Sidebar = () => {
+const Sidebar = ({ showLoader = true }) => {
   const { user, setUser } = useUserStore();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {  
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("/api/auth/profile", {
@@ -34,7 +34,7 @@ const Sidebar = () => {
     }
   }, [user?._id, setUser]);
 
-  if (loading) {
+  if (showLoader && loading) {
     return (
       <div
         className="d-flex justify-content-center align-items-center"
@@ -50,22 +50,20 @@ const Sidebar = () => {
   return (
     <div className="profile-nav col-md-3">
       <div className="panel">
-   <div
-  className="user-heading round d-flex flex-column align-items-center text-center"
->
-  <img
-    src={user.image || "/assets/images/default-user.png"}
-    alt="Profile"
-    className="rounded-circle"
-    style={{
-      width: "120px",
-      height: "120px",
-      objectFit: "cover",
-    }}
-  />
-  <h1 className="mt-3">{user.name || "User"}</h1>
-  <p>{user.email || "user@example.com"}</p>
-</div>
+        <div className="user-heading round d-flex flex-column align-items-center text-center">
+          <img
+            src={user?.image || "/assets/images/default-user.png"}
+            alt="Profile"
+            className="rounded-circle"
+            style={{
+              width: "120px",
+              height: "120px",
+              objectFit: "cover",
+            }}
+          />
+          <h1 className="mt-3">{user?.name || "User"}</h1>
+          <p>{user?.email || "user@example.com"}</p>
+        </div>
 
         <ul className="nav nav-pills nav-stacked">
           {/* <li className="active">
@@ -98,7 +96,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-             <li>
+          <li>
             <Link href="/user/upgrade-membership">
               <i className="fa fa-arrow-up" /> Upgrade Membership
             </Link>

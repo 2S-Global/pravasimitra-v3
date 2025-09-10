@@ -9,7 +9,6 @@ import axios from "axios";
 import AlertService from "@/app/components/alertService";
 import useUserStore from "@/app/store/useUserStore";
 
-
 const ChangeProfileImage = () => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -42,14 +41,10 @@ const ChangeProfileImage = () => {
       const formData = new FormData();
       formData.append("image", file);
 
-      const res = await axios.put(
-        "/api/auth/profile-img",
-        formData,
-        {
-          withCredentials: true, // ✅ ensures cookies are sent
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const res = await axios.put("/api/auth/profile-img", formData, {
+        withCredentials: true, // ✅ ensures cookies are sent
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       if (res) {
         AlertService.success("Profile image updated successfully!");
@@ -64,6 +59,12 @@ const ChangeProfileImage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCancel = () => {
+    setPreview(null);
+    setFile(null);
+    document.getElementById("profile_image").value = "";
   };
 
   return (
@@ -99,7 +100,8 @@ const ChangeProfileImage = () => {
                     <div className="col-md-9">
                       <div className="tm-form-field mb-3">
                         <label htmlFor="profile_image" className="mb-2">
-                          Select New Profile Image <span className="text-danger">*</span>
+                          Select New Profile Image{" "}
+                          <span className="text-danger">*</span>
                         </label>
                         <input
                           type="file"
@@ -108,8 +110,11 @@ const ChangeProfileImage = () => {
                           id="profile_image"
                           accept="image/*"
                           onChange={handleImageChange}
-                      
                         />
+                        {/* Allowed formats note */}
+                        <small className="form-text text-muted">
+                          Allowed formats: JPG, JPEG, PNG (Max 5MB)
+                        </small>
                       </div>
 
                       {preview && (
@@ -121,13 +126,21 @@ const ChangeProfileImage = () => {
                             style={{
                               maxWidth: "150px",
                               borderRadius: "50%",
-                              
+                              display: "block",
+                              margin: "0 auto",
                             }}
                           />
                         </div>
                       )}
 
-                      <div className="tm-form-field text-center">
+                      <div className="tm-form-field text-center d-flex justify-content-center gap-3">
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary px-4 me-3"
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </button>
                         <button
                           type="submit"
                           className="btn btn-danger px-4"

@@ -16,8 +16,8 @@ export default function UpgradeMembershipPage() {
   const [stripePromise, setStripePromise] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const [loadingPlanId, setLoadingPlanId] = useState(null);
- const [currencyName, setCurrencyName] = useState("");
-   
+  const [currencyName, setCurrencyName] = useState("");
+
   const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND;
   // ✅ Fetch Stripe key dynamically
   const fetchStripeKey = async () => {
@@ -87,7 +87,7 @@ export default function UpgradeMembershipPage() {
     fetchPlans();
   }, []);
 
-  const handleUpgrade = async (plan,currencyName) => {
+  const handleUpgrade = async (plan, currencyName) => {
     if (plan._id === currentPlanId) {
       alert("You are already subscribed to this membership.");
       return;
@@ -106,7 +106,7 @@ export default function UpgradeMembershipPage() {
       // ✅ axios POST with cookies
       const res = await axios.post(
         "/api/membership-payment",
-        { cartItems, successUrl, cancelUrl,currencyName },
+        { cartItems, successUrl, cancelUrl, currencyName },
         { withCredentials: true }
       );
 
@@ -131,10 +131,11 @@ export default function UpgradeMembershipPage() {
       <div className="tm-section tm-login-register-area bg-white tm-padding-section">
         <div className="container">
           <div className="row col-md-12">
-            <Sidebar />
+            <Sidebar showLoader={false} />
+
             {initialLoading ? (
               <div
-                className="d-flex justify-content-center align-items-center"
+                className="profile-info col-md-9 d-flex justify-content-center align-items-center"
                 style={{ minHeight: "300px" }}
               >
                 <div className="spinner-border text-primary" role="status">
@@ -157,10 +158,10 @@ export default function UpgradeMembershipPage() {
                             className={`card h-100 shadow-lg border-0 plan-card ${
                               isCurrent ? "current-plan-card" : ""
                             }`}
-                        style={{
-    borderRadius: "1.5rem", // ⬅️ increased from 1rem
-    transition: "transform 0.3s ease",
-  }}
+                            style={{
+                              borderRadius: "1.5rem", // ⬅️ increased from 1rem
+                              transition: "transform 0.3s ease",
+                            }}
                           >
                             {isCurrent && (
                               <div
@@ -191,17 +192,28 @@ export default function UpgradeMembershipPage() {
 
                             <div className="card-body d-flex flex-column">
                               <ul className="list-unstyled mb-4 mt-3">
-                                <li className="mb-2">
-                                  <i className="bi bi-check-circle-fill text-success me-2"></i>
-                                  Buy/Sell Limit: {plan.limits.buySell}
+                                <li className="mb-2 d-flex justify-content-between">
+                                  <span className="d-flex align-items-center">
+                                    <i className="bi bi-check-circle-fill text-success me-2"></i>
+                                    Buy/Sell Limit:
+                                  </span>
+                                  <span>{plan.limits.buySell}</span>
                                 </li>
-                                <li className="mb-2">
-                                  <i className="bi bi-check-circle-fill text-success me-2"></i>
-                                  Rent/Lease Limit: {plan.limits.rentLease}
+
+                                <li className="mb-2 d-flex justify-content-between">
+                                  <span className="d-flex align-items-center">
+                                    <i className="bi bi-check-circle-fill text-success me-2"></i>
+                                    Rent/Lease Limit:
+                                  </span>
+                                  <span>{plan.limits.rentLease}</span>
                                 </li>
-                                <li className="mb-2">
-                                  <i className="bi bi-check-circle-fill text-success me-2"></i>
-                                  Marketplace Limit: {plan.limits.marketplace}
+
+                                <li className="mb-2 d-flex justify-content-between">
+                                  <span className="d-flex align-items-center">
+                                    <i className="bi bi-check-circle-fill text-success me-2"></i>
+                                    Marketplace Limit:
+                                  </span>
+                                  <span>{plan.limits.marketplace}</span>
                                 </li>
                               </ul>
 
@@ -213,8 +225,10 @@ export default function UpgradeMembershipPage() {
                                 }`}
                                 disabled={
                                   isCurrent || loadingPlanId === plan._id
-                                } // ✅ disable while loading
-                                onClick={() => handleUpgrade(plan,plan.currencyName)}
+                                }
+                                onClick={() =>
+                                  handleUpgrade(plan, plan.currencyName)
+                                }
                               >
                                 {loadingPlanId === plan._id ? (
                                   <>

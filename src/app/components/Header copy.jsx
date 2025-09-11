@@ -11,7 +11,7 @@ const Header = () => {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setLoggedOut = useAuthStore((state) => state.setLoggedOut);
   const router = useRouter();
-  const totalQuantity = useCartStore((state) => state.totalQuantity);
+const totalQuantity = useCartStore((state) => state.totalQuantity);
   const [loggingOut, setLoggingOut] = useState(false);
   const { user, setUser } = useUserStore();
 
@@ -26,40 +26,44 @@ const Header = () => {
           setUser(res.data.user); // store full user object in Zustand
         }
       } catch (error) {
-        console.log(error);
+     console.log(error);
       }
     };
 
     if (!user?._id) {
       fetchUser();
-    }
+    } 
   }, [user?._id, setUser]);
+  
 
-  const handleLogout = async () => {
-    const { clearCart } = useCartStore.getState();
-    try {
-      // console.log("Starting logout process...");
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
+const handleLogout = async () => {
+  const { clearCart } = useCartStore.getState();
+  try {
+    // console.log("Starting logout process...");
+    await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-      clearCart();
+    clearCart();
 
-      setLoggedOut();
-      setTimeout(() => {
-        router.replace("/login");
-        window.location.reload(); // optional, if you want a full reload
-      }, 2000);
-    } catch (err) {
-      console.error("Logout error:", err);
-      clearCart();
+    setLoggedOut();
+    setTimeout(() => {
+      router.replace("/login");
+      window.location.reload(); // optional, if you want a full reload
+    }, 2000);
 
-      setLoggedOut();
+  } catch (err) {
+    console.error("Logout error:", err);
+    clearCart();
 
-      setTimeout(() => {
-        router.replace("/login");
-        window.location.reload(); // optional, if you want a full reload
-      }, 2000);
-    }
-  };
+    setLoggedOut();
+
+    setTimeout(() => {
+      router.replace("/login");
+      window.location.reload(); // optional, if you want a full reload
+    }, 2000);
+
+  }
+};
+
 
   return (
     <div id="wrapper" className="wrapper">
@@ -128,26 +132,23 @@ const Header = () => {
                   <li>
                     <Link href="/about-us">About</Link>
                   </li>
-                  {isLoggedIn && (
-                    <>
-                      <li>
-                        <Link href="/user/buy-sell/buysell-category">
-                          {" "}
-                          Buy & Sell
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/user/rent-lease/rentlease-category">
-                          Rent & Lease
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/user/marketplace/marketplace-category">
-                          MarketPlace
-                        </Link>
-                      </li>
-                    </>
-                  )}
+                      {isLoggedIn && (
+                         <>
+                  <li>
+                    <Link href="/user/buy-sell/buysell-category"> Buy & Sell</Link>
+                  </li>
+                  <li>
+                    <Link href="/user/rent-lease/rentlease-category">
+                      Rent & Lease
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/user/marketplace/marketplace-category">
+                      MarketPlace
+                    </Link>
+                  </li>
+                  </>
+                      )}
                   <li className="tm-navigation-dropdown">
                     <Link href="/blogs">Blogs</Link>
                   </li>
@@ -167,43 +168,43 @@ const Header = () => {
               </nav>
 
               <div className="header-icons d-flex align-items-center">
-                {/* Cart Icon visible only when logged in */}
-                {isLoggedIn && (
-                  <div className="cart-icon-wrapper position-relative me-3">
-                    <Link href="/cart" className="text-dark position-relative">
-                      <i className="fas fa-shopping-cart fa-lg"></i>
-                      <span className="cart-count badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                        {totalQuantity}
-                      </span>
-                    </Link>
-                  </div>
-                )}
+                {/* Cart Icon */}
+                <div className="cart-icon-wrapper position-relative me-3">
+                  <Link href="/cart" className="text-dark position-relative">
+                    <i className="fas fa-shopping-cart fa-lg"></i>
+                    <span className="cart-count badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                  {totalQuantity}
+                    </span>
+                  </Link>
+                </div>
 
                 {/* User Dropdown */}
 
-                {isLoggedIn && (
-                  <>
-                    <div className="dropdown">
-                      <button
-                        className="btn btn-light border-0 dropdown-toggle d-flex align-items-center"
-                        type="button"
-                        id="userMenu"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        style={{ background: "transparent" }}
-                      >
-                        <img
-                          src={user?.image || "/assets/images/default-user.png"}
-                          alt="User"
-                          className="rounded-circle"
-                          style={{ width: "40px", height: "40px" }}
-                        />
-                      </button>
-                      <ul
-                        className="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="userMenu"
-                      >
-                        {/*                  
+                   {isLoggedIn && (
+                      <>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-light border-0 dropdown-toggle d-flex align-items-center"
+                    type="button"
+                    id="userMenu"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{ background: "transparent" }}
+                  >
+                    <img
+                      src={ user?.image ||
+                "/assets/images/default-user.png"}
+                      alt="User"
+                      className="rounded-circle"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  </button>
+                  <ul
+                    className="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="userMenu"
+                    
+                  >
+{/*                  
                         <li style={{ display:"block" }}>
                           <Link
                             className="dropdown-item"
@@ -213,7 +214,7 @@ const Header = () => {
                           </Link>
                         </li> */}
 
-                        <li style={{ display: "block" }}>
+                        <li style={{ display:"block" }}>
                           <Link
                             className="dropdown-item"
                             href="/user/my-account"
@@ -221,7 +222,7 @@ const Header = () => {
                             Profile
                           </Link>
                         </li>
-                        <li style={{ display: "block" }}>
+                      <li style={{ display:"block" }}>
                           {/* <Link
                             className="dropdown-item"
                             href="/user/buy-sell/buyer-list"
@@ -229,23 +230,21 @@ const Header = () => {
                            Apply List (Buy/Sell)
                           </Link> */}
                         </li>
-
-                        <li style={{ display: "block" }}>
+                 
+               
+                        <li style={{ display:"block" }}>
                           <Link className="dropdown-item" href="/user/orders">
-                            My Orders
+                           My Orders
                           </Link>
                         </li>
 
-                        <li style={{ display: "block" }}>
-                          <Link
-                            className="dropdown-item"
-                            href="/user/recieved-orders"
-                          >
-                            Recieved Orders
+                        <li style={{ display:"block" }}>
+                          <Link className="dropdown-item" href="/user/recieved-orders">
+                           Recieved Orders
                           </Link>
                         </li>
 
-                        <li style={{ display: "block" }}>
+                        <li style={{ display:"block" }}>
                           <Link
                             className="dropdown-item"
                             href="/user/buy-sell/list"
@@ -254,7 +253,7 @@ const Header = () => {
                           </Link>
                         </li>
 
-                        <li style={{ display: "block" }}>
+                        <li style={{ display:"block" }}> 
                           <Link
                             className="dropdown-item"
                             href="/user/rent-lease/list"
@@ -262,7 +261,7 @@ const Header = () => {
                             Manage Rent/Lease
                           </Link>
                         </li>
-                        <li style={{ display: "block" }}>
+                        <li style={{ display:"block" }}>
                           <Link
                             className="dropdown-item"
                             href="/user/marketplace/list"
@@ -270,23 +269,25 @@ const Header = () => {
                             Manage MarketPlace
                           </Link>
                         </li>
-
-                        <li style={{ display: "block" }}>
-                          <hr className="dropdown-divider" />
-                        </li>
-
-                        <li>
-                          <button
-                            onClick={handleLogout}
-                            className="dropdown-item"
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </>
-                )}
+                   
+                    <li style={{ display:"block" }}>
+                      <hr className="dropdown-divider" />
+                    </li>
+              
+                      <li>
+                        <button
+                          onClick={handleLogout}
+                          className="dropdown-item"
+                          
+                        >
+                          Logout
+                        </button>
+                      </li>
+               
+                  </ul>
+                </div>
+                   </>
+                    )}
               </div>
 
               <div className="header-searchbox">

@@ -319,7 +319,15 @@ const ListHomes = () => {
                             }}
                           >
                             {/* Image Section */}
-                            <div className="position-relative">
+                            <div
+                              className="position-relative"
+                              onClick={() =>
+                                router.push(
+                                  `/user/rent-lease/details/${property.id}`
+                                )
+                              }
+                              style={{ cursor: "pointer" }}
+                            >
                               <img
                                 src={property.images?.[0]}
                                 className="card-img-top"
@@ -387,8 +395,6 @@ const ListHomes = () => {
                                 {property.frequency.charAt(0).toUpperCase() +
                                   property.frequency.slice(1)}
                               </p>
-
-                              
 
                               <button
                                 className="btn btn-primary rounded-pill px-4 py-2"

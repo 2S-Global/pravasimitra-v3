@@ -94,7 +94,7 @@ const MarketPlaceListing = () => {
     fetchProducts(id);
   }, [id]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (searchTerm.trim() === "") {
       fetchProducts(selectedCategory);
       return;
@@ -219,100 +219,129 @@ const MarketPlaceListing = () => {
                         </div>
                       </div>
                     ) : (
-            allItems.map((item, index) => (
-  <div className="col-md-4 mb-4" key={index}>
-    <div
-      className="card h-100 shadow-sm border-0 rounded-4 overflow-hidden position-relative"
-      style={{
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-5px)";
-        e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.15)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
-      }}
-    >
-      {/* Image Section */}
-      <div className="position-relative">
-        <img
-          src={item.images[0]}
-          className="card-img-top"
-          alt={item.title}
-          style={{
-            height: "250px",
-            objectFit: "cover",
-            transition: "transform 0.4s ease",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        />
+                      allItems.map((item, index) => (
+                        <div className="col-md-4 mb-4" key={index}>
+                          <div
+                            className="card h-100 shadow-sm border-0 rounded-4 overflow-hidden position-relative"
+                            style={{
+                              transition:
+                                "transform 0.3s ease, box-shadow 0.3s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform =
+                                "translateY(-5px)";
+                              e.currentTarget.style.boxShadow =
+                                "0 8px 20px rgba(0,0,0,0.15)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "translateY(0)";
+                              e.currentTarget.style.boxShadow =
+                                "0 4px 12px rgba(0,0,0,0.1)";
+                            }}
+                          >
+                            {/* Image Section */}
+                            <div
+                              className="position-relative"
+                              onClick={() =>
+                                router.push(`/user/marketplace/details/${item.id}`)
+                              }
+                              style={{ cursor: "pointer" }}
+                            >
+                              <img
+                                src={item.images[0]}
+                                className="card-img-top"
+                                alt={item.title}
+                                style={{
+                                  height: "250px",
+                                  objectFit: "cover",
+                                  transition: "transform 0.4s ease",
+                                }}
+                                onMouseEnter={(e) =>
+                                  (e.currentTarget.style.transform =
+                                    "scale(1.05)")
+                                }
+                                onMouseLeave={(e) =>
+                                  (e.currentTarget.style.transform = "scale(1)")
+                                }
+                              />
 
-        {item.images && item.images.length > 1 && (
-          <span
-            className="badge bg-dark position-absolute top-0 end-0 m-2 rounded-pill"
-            style={{ padding: "6px 12px", fontSize: "0.85rem" }}
-          >
-            +{item.images.length - 1} Photos
-          </span>
-        )}
-      </div>
+                              {item.images && item.images.length > 1 && (
+                                <span
+                                  className="badge bg-dark position-absolute top-0 end-0 m-2 rounded-pill"
+                                  style={{
+                                    padding: "6px 12px",
+                                    fontSize: "0.85rem",
+                                  }}
+                                >
+                                  +{item.images.length - 1} Photos
+                                </span>
+                              )}
+                            </div>
 
-      {/* Card Body */}
-      <div className="card-body text-center">
-        {/* Title */}
-        <h5 className="card-title fw-bold text-truncate">
-          {item.title.length > 30 ? item.title.slice(0, 30) + "..." : item.title}
-        </h5>
+                            {/* Card Body */}
+                            <div className="card-body text-center">
+                              {/* Title */}
+                              <h5 className="card-title fw-bold text-truncate">
+                                {item.title.length > 30
+                                  ? item.title.slice(0, 30) + "..."
+                                  : item.title}
+                              </h5>
 
-        {/* Location */}
-        <p className="text-muted mb-1 small">
-          <i className="bi bi-geo-alt-fill me-1 text-danger"></i>
-          {item.location?.split(" ").slice(0, 6).join(" ")}
-          {item.location?.split(" ").length > 6 && "..."}
-        </p>
+                              {/* Location */}
+                              <p className="text-muted mb-1 small">
+                                <i className="bi bi-geo-alt-fill me-1 text-danger"></i>
+                                {item.location
+                                  ?.split(" ")
+                                  .slice(0, 6)
+                                  .join(" ")}
+                                {item.location?.split(" ").length > 6 && "..."}
+                              </p>
 
-        {/* Short Description */}
-        <p className="card-text text-secondary small">
-          {item.shortDesc
-            ? item.shortDesc.split(" ").slice(0, 10).join(" ") +
-              (item.shortDesc.split(" ").length > 10 ? "..." : "")
-            : ""}
-        </p>
+                              {/* Short Description */}
+                              <p className="card-text text-secondary small">
+                                {item.shortDesc
+                                  ? item.shortDesc
+                                      .split(" ")
+                                      .slice(0, 10)
+                                      .join(" ") +
+                                    (item.shortDesc.split(" ").length > 10
+                                      ? "..."
+                                      : "")
+                                  : ""}
+                              </p>
 
-        {/* Price */}
-        <p className="fw-bold fs-5 text-success mb-3">
-          {item.currency}
-          {item.price}
-        </p>
+                              {/* Price */}
+                              <p className="fw-bold fs-5 text-success mb-3">
+                                {item.currency}
+                                {item.price}
+                              </p>
 
-        {/* Button */}
-        <button
-          className="btn rounded-pill px-4 py-2"
-          onClick={() =>
-            router.push(`/user/marketplace/details/${item.id}`)
-          }
-          style={{
-            background: "#c12020",
-            color: "#fff",
-            border: "none",
-          }}
-        >
-          View Details
-        </button>
-      </div>
-    </div>
-  </div>
-))
+                              {/* Button */}
+                              <button
+                                className="btn rounded-pill px-4 py-2"
+                                onClick={() =>
+                                  router.push(
+                                    `/user/marketplace/details/${item.id}`
+                                  )
+                                }
+                                style={{
+                                  background: "#c12020",
+                                  color: "#fff",
+                                  border: "none",
+                                }}
+                              >
+                                View Details
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))
                     )}
                   </div>
                 )}
               </div>
 
               {/* Floating SOS Button */}
-       
             </div>
           </div>
         </div>

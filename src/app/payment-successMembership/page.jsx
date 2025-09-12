@@ -22,12 +22,15 @@ export default function PaymentSuccessClient() {
 
       const signupData = JSON.parse(sessionStorage.getItem("registerData") || "{}");
       const selectedPlan = JSON.parse(sessionStorage.getItem("selectedPlan") || "{}");
+      // const parsedData = JSON.parse(signupData);
+
+      const countryId=signupData.currentCountry;
 
       try {
         setStatus("Saving transaction...");
         const transRes = await axios.post(
-          `/api/membership-transaction`,
-          { sessionId },
+          `/api/membership-transaction-register`,
+          { sessionId ,countryId},
           { withCredentials: true } // ✅ sends cookie automatically
         );
 
@@ -63,32 +66,30 @@ export default function PaymentSuccessClient() {
     handleSuccess();
   }, [router]);
 
-  return (
-    <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light">
+return (
+  <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light">
+    {loading ? (
+      <div className="text-center">
+        <div
+          className="spinner-border text-primary mb-3"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        />
+        <h5 className="text-primary">{status}</h5>
+        <p className="text-muted small">
+          Please wait, this may take a few seconds...
+        </p>
+      </div>
+    ) : (
       <div
         className="card shadow-sm border-0 p-5 text-center"
         style={{ maxWidth: 400 }}
       >
-        {loading ? (
-          <>
-            <div
-              className="spinner-border text-primary mb-3"
-              style={{ width: "3rem", height: "3rem" }}
-              role="status"
-            />
-            <h5 className="text-primary">{status}</h5>
-            <p className="text-muted small">
-              Please wait, this may take a few seconds...
-            </p>
-          </>
-        ) : (
-          <>
-            <div style={{ fontSize: "3rem", color: "green" }}>✅</div>
-            <h5 className="mt-3 text-success">All done!</h5>
-            <p className="text-muted">You will be redirected shortly.</p>
-          </>
-        )}
+        <div style={{ fontSize: "3rem", color: "green" }}>✅</div>
+        <h5 className="mt-3 text-success">All done!</h5>
+        <p className="text-muted">You will be redirected shortly.</p>
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 }

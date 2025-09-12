@@ -12,18 +12,18 @@ export default function PaymentCancelledPage() {
     document.title = 'Payment Cancelled';
 
     const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          router.push('/user/register');
-          return 0;
-        }
-        return prev - 1;
-      });
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [router]);
+  }, []);
+
+  // 👇 Separate effect just for navigation
+  useEffect(() => {
+    if (countdown === 0) {
+      router.push('/register');
+    }
+  }, [countdown, router]);
 
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light px-3">
@@ -49,15 +49,8 @@ export default function PaymentCancelledPage() {
 
         {/* Countdown */}
         <div className="text-muted small mb-3">
-          Redirecting to your signup in <strong>{countdown}</strong> seconds...
+          Redirecting to your Register in <strong>{countdown}</strong> seconds...
         </div>
-
-        {/* Buttons */}
-        {/* <div className="d-flex gap-3 justify-content-center flex-wrap">
-          <Link href="/contact" className="btn btn-outline-secondary px-4">
-            Contact Support
-          </Link>
-        </div> */}
       </div>
     </div>
   );

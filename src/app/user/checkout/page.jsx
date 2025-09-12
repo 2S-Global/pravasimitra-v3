@@ -14,7 +14,6 @@ const Checkout = () => {
   const router = useRouter();
   const [billing, setBilling] = useState({
     fullName: "",
-
     email: "",
     phone: "",
     address: "",
@@ -39,7 +38,7 @@ const Checkout = () => {
   const [cartTotal, setCartTotal] = useState(0);
   const [currencyName, setCurrencyName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [stripePromise, setStripePromise] = useState(null)
+  const [stripePromise, setStripePromise] = useState(null);
 
   const Required = () => <span className="text-danger">*</span>;
 
@@ -56,14 +55,13 @@ const Checkout = () => {
       const res = await axios.get("/api/get-stripeKey", {
         withCredentials: true,
       });
-  const publishableKey = res.data.publishable_key;
-     setStripePromise(loadStripe(publishableKey));
+      const publishableKey = res.data.publishable_key;
+      setStripePromise(loadStripe(publishableKey));
     } catch (e) {
       console.error("Error fetching secret key:", e);
       throw e;
     }
   };
-
 
   const fetchCart = async () => {
     try {
@@ -92,10 +90,35 @@ const Checkout = () => {
     }
   };
 
+  const [loadingUserData, setLoadingUserData] = useState(true);
+
+  const fetchUserData = async () => {
+    try {
+      setLoadingUserData(true); //start loader
+      const res = await axios.get("/api/auth/profile", {
+        withCredentials: true,
+      });
+
+      const user = res.data.user;
+
+      setBilling((prev) => ({
+        ...prev,
+        fullName: user?.name || "",
+        email: user?.email || "",
+        phone: user?.mobile || "",
+      }));
+    } catch (err) {
+      console.error("User data fetch error:", err);
+    } finally {
+      setLoadingUserData(false); //stop loader
+    }
+  };
+
   useEffect(() => {
     fetchOrderSummary();
     fetchCart();
     fetchSecretKey();
+    fetchUserData();
   }, []);
 
   const handleCheckbox = (e) => {
@@ -110,7 +133,7 @@ const Checkout = () => {
   // console.log("FRONTEND_URL:", FRONTEND_URL);
   const handlePay = async () => {
     try {
-     const stripe = await stripePromise;
+      const stripe = await stripePromise;
       const successUrl = `${FRONTEND_URL}/user/payment-success?session_id={CHECKOUT_SESSION_ID}`;
       const cancelUrl = `${FRONTEND_URL}/user/payment-cancel`;
 
@@ -233,264 +256,279 @@ const Checkout = () => {
         <section className="py-5 bg-light">
           <div className="container">
             <h2 className="fw-bold mb-4 text-center">Checkout</h2>
-            <div className="row g-5">
-              {/* Billing and Shipping Forms */}
-              <div className="col-lg-7">
-                <div className="bg-white p-4 shadow rounded-4 mb-4">
-                  <h5 className="fw-semibold mb-3">Billing Information</h5>
-                  <form>
-                    <div className="row g-3">
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          Full Name <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="fullName"
-                          value={billing.fullName}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
 
-                      <div className="col-6">
-                        <label className="form-label">
-                          Email <Required />
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={billing.email}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label">
-                          Phone <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="phone"
-                          value={billing.phone}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          City <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="city"
-                          value={billing.city}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          State <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="state"
-                          value={billing.state}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label">
-                          PIN Code <Required />
-                        </label>
-                        <input
-                          type="text"
-                          value={billing.zip}
-                          name="zip"
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label">
-                          Billing Address <Required />
-                        </label>
-                        <textarea
-                          className="form-control"
-                          name="address"
-                          value={billing.address}
-                          rows="3"
-                          onChange={handleChange("billing")}
-                        ></textarea>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-                <div className="bg-white p-4 shadow rounded-4">
-                  <h5 className="fw-semibold mb-3">Shipping Information</h5>
-
-                  <div className="form-check mb-3">
-                    <input
-                      className={`form-check-input ${styles.smallCheckbox}`}
-                      type="checkbox"
-                      id="sameAddress"
-                      checked={sameAsBilling}
-                      onChange={handleCheckbox}
-                    />
-                    <label className="form-check-label" htmlFor="sameAddress">
-                      Shipping address is the same as billing address
-                    </label>
-                  </div>
-
-                  <form>
-                    <div className="row g-3">
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          Full Name <Required />
-                        </label>
-                        <input
-                          name="fullName"
-                          type="text"
-                          value={shipping.fullName}
-                          className="form-control"
-                          readOnly={sameAsBilling}
-                          onChange={handleChange("shipping")}
-                        />
-                      </div>
-
-                      <div className="col-6">
-                        <label className="form-label">
-                          Email <Required />
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={shipping.email}
-                          className="form-control"
-                          readOnly={sameAsBilling}
-                          onChange={handleChange("shipping")}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label">
-                          Phone <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="phone"
-                          className="form-control"
-                          value={shipping.phone}
-                          readOnly={sameAsBilling}
-                          onChange={handleChange("shipping")}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          City <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="city"
-                          value={shipping.city}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label">
-                          State <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="state"
-                          value={shipping.state}
-                          className="form-control"
-                          onChange={handleChange("billing")}
-                        />
-                      </div>
-
-                      <div className="col-6">
-                        <label className="form-label">
-                          PIN Code <Required />
-                        </label>
-                        <input
-                          type="text"
-                          name="zip"
-                          value={shipping.zip}
-                          className="form-control"
-                          readOnly={sameAsBilling}
-                          onChange={handleChange("shipping")}
-                        />
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label">
-                          Shipping Address <Required />
-                        </label>
-                        <textarea
-                          className="form-control"
-                          rows="3"
-                          name="address"
-                          value={shipping.address}
-                          readOnly={sameAsBilling}
-                          onChange={handleChange("shipping")}
-                        ></textarea>
-                      </div>
-                    </div>
-                  </form>
+            {loadingUserData ? (
+              <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ minHeight: "400px" }}
+              >
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
+            ) : (
+              <div className="row g-5">
+                {/* Billing and Shipping Forms */}
+                <div className="col-lg-7">
+                  <div className="bg-white p-4 shadow rounded-4 mb-4">
+                    <h5 className="fw-semibold mb-3">Billing Information</h5>
+                    <form>
+                      <div className="row g-3">
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            Full Name <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="fullName"
+                            value={billing.fullName}
+                            className="form-control"
+                            // onChange={handleChange("billing")}
+                            readOnly
+                          />
+                        </div>
 
-              {/* Order Summary */}
-              <div className="col-lg-5">
-                <div className="bg-white p-4 shadow rounded-4">
-                  <h5 className="fw-semibold mb-3">Order Summary</h5>
-                  <ul className="list-group list-group-flush mb-3">
-                    <li className="list-group-item d-flex justify-content-between">
-                      <span>
-                        Price ({orderSummary.items}{" "}
-                        {orderSummary.items === 1 ? "item" : "items"})
-                      </span>
-                      <strong>
-                        {orderSummary.currency}
-                        {orderSummary.totalAmount}
-                      </strong>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between text-muted">
-                      <span>Shipping</span>
-                      <span>Free</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between fw-bold fs-5">
-                      <span>Total</span>
-                      <span className="text-success">
-                        {orderSummary.currency}
-                        {orderSummary.totalAmount}
-                      </span>
-                    </li>
-                  </ul>
+                        <div className="col-6">
+                          <label className="form-label">
+                            Email <Required />
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={billing.email}
+                            className="form-control"
+                            // onChange={handleChange("billing")}
+                            readOnly
+                          />
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label">
+                            Phone <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="phone"
+                            value={billing.phone}
+                            className="form-control"
+                            // onChange={handleChange("billing")}
+                            readOnly
+                          />
+                        </div>
 
-                  <div className="mb-3">
-                    <label className="form-label fw-semibold">
-                      Payment Method
-                    </label>
-                    <select className="form-select">
-                      <option>Credit/Debit Card</option>
-                    </select>
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            City <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="city"
+                            value={billing.city}
+                            className="form-control"
+                            onChange={handleChange("billing")}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            State <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="state"
+                            value={billing.state}
+                            className="form-control"
+                            onChange={handleChange("billing")}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label">
+                            PIN Code <Required />
+                          </label>
+                          <input
+                            type="text"
+                            value={billing.zip}
+                            name="zip"
+                            className="form-control"
+                            onChange={handleChange("billing")}
+                          />
+                        </div>
+                        <div className="col-12">
+                          <label className="form-label">
+                            Billing Address <Required />
+                          </label>
+                          <textarea
+                            className="form-control"
+                            name="address"
+                            value={billing.address}
+                            rows="3"
+                            onChange={handleChange("billing")}
+                          ></textarea>
+                        </div>
+                      </div>
+                    </form>
                   </div>
 
-                  <button
-                    className="btn btn-danger w-100 py-2 fw-semibold rounded-3 mt-4"
-                    onClick={placeOrder}
-                    disabled={loading}
-                  >
-                    {loading ? "Processing..." : "Place Order"}
-                  </button>
+                  <div className="bg-white p-4 shadow rounded-4">
+                    <h5 className="fw-semibold mb-3">Shipping Information</h5>
+
+                    <div className="form-check mb-3">
+                      <input
+                        className={`form-check-input ${styles.smallCheckbox}`}
+                        type="checkbox"
+                        id="sameAddress"
+                        checked={sameAsBilling}
+                        onChange={handleCheckbox}
+                      />
+                      <label className="form-check-label" htmlFor="sameAddress">
+                        Shipping address is the same as billing address
+                      </label>
+                    </div>
+
+                    <form>
+                      <div className="row g-3">
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            Full Name <Required />
+                          </label>
+                          <input
+                            name="fullName"
+                            type="text"
+                            value={shipping.fullName}
+                            className="form-control"
+                            readOnly={sameAsBilling}
+                            onChange={handleChange("shipping")}
+                          />
+                        </div>
+
+                        <div className="col-6">
+                          <label className="form-label">
+                            Email <Required />
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={shipping.email}
+                            className="form-control"
+                            readOnly={sameAsBilling}
+                            onChange={handleChange("shipping")}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label">
+                            Phone <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="phone"
+                            className="form-control"
+                            value={shipping.phone}
+                            readOnly={sameAsBilling}
+                            onChange={handleChange("shipping")}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            City <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="city"
+                            value={shipping.city}
+                            className="form-control"
+                            onChange={handleChange("billing")}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">
+                            State <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="state"
+                            value={shipping.state}
+                            className="form-control"
+                            onChange={handleChange("billing")}
+                          />
+                        </div>
+
+                        <div className="col-6">
+                          <label className="form-label">
+                            PIN Code <Required />
+                          </label>
+                          <input
+                            type="text"
+                            name="zip"
+                            value={shipping.zip}
+                            className="form-control"
+                            readOnly={sameAsBilling}
+                            onChange={handleChange("shipping")}
+                          />
+                        </div>
+                        <div className="col-12">
+                          <label className="form-label">
+                            Shipping Address <Required />
+                          </label>
+                          <textarea
+                            className="form-control"
+                            rows="3"
+                            name="address"
+                            value={shipping.address}
+                            readOnly={sameAsBilling}
+                            onChange={handleChange("shipping")}
+                          ></textarea>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                {/* Order Summary */}
+                <div className="col-lg-5">
+                  <div className="bg-white p-4 shadow rounded-4">
+                    <h5 className="fw-semibold mb-3">Order Summary</h5>
+                    <ul className="list-group list-group-flush mb-3">
+                      <li className="list-group-item d-flex justify-content-between">
+                        <span>
+                          Price ({orderSummary.items}{" "}
+                          {orderSummary.items === 1 ? "item" : "items"})
+                        </span>
+                        <strong>
+                          {orderSummary.currency}
+                          {orderSummary.totalAmount}
+                        </strong>
+                      </li>
+                      <li className="list-group-item d-flex justify-content-between text-muted">
+                        <span>Shipping</span>
+                        <span>Free</span>
+                      </li>
+                      <li className="list-group-item d-flex justify-content-between fw-bold fs-5">
+                        <span>Total</span>
+                        <span className="text-success">
+                          {orderSummary.currency}
+                          {orderSummary.totalAmount}
+                        </span>
+                      </li>
+                    </ul>
+
+                    <div className="mb-3">
+                      <label className="form-label fw-semibold">
+                        Payment Method
+                      </label>
+                      <select className="form-select">
+                        <option>Credit/Debit Card</option>
+                      </select>
+                    </div>
+
+                    <button
+                      className="btn btn-danger w-100 py-2 fw-semibold rounded-3 mt-4"
+                      onClick={placeOrder}
+                      disabled={loading}
+                    >
+                      {loading ? "Processing..." : "Place Order"}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
       </div>

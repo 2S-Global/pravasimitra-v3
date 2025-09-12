@@ -434,7 +434,7 @@ const Checkout = () => {
                             name="city"
                             value={shipping.city}
                             className="form-control"
-                            onChange={handleChange("billing")}
+                            onChange={handleChange("shipping")}
                           />
                         </div>
                         <div className="col-md-6">
@@ -446,7 +446,7 @@ const Checkout = () => {
                             name="state"
                             value={shipping.state}
                             className="form-control"
-                            onChange={handleChange("billing")}
+                            onChange={handleChange("shipping")}
                           />
                         </div>
 

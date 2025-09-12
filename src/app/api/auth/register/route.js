@@ -30,6 +30,7 @@ const sendWelcomeEmail = async (userEmail, userName, userPassword) => {
     subject: "Welcome to Pravasi Mitra",
     html: `
       <p><img src="https://res.cloudinary.com/dwy9i2fqt/image/upload/v1755090539/Pravasi_Mitra_Logo_vwfvsb.png" alt="Pravasi Mitra" style="width:150px;"></p>
+      <br>
       <p>Hello ${userName},</p>
       <p>Welcome to Pravasi Mitra! Your account has been created successfully.</p>
       <p>Here are your login credentials:</p>

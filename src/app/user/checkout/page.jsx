@@ -165,7 +165,7 @@ const Checkout = () => {
       return;
     }
 
-    if (name === "phone" && !/^\d{0,12}$/.test(value)) {
+    if (name === "phone" && !/^\+\d{0,12}$/.test(value)) {
       return;
     }
 
@@ -223,7 +223,7 @@ const Checkout = () => {
       }
 
       if (!phoneRegex.test(data.phone)) {
-        AlertService.error(`${type} Phone Number must be 10 or 11 digits`);
+        AlertService.error(`${type} Phone Number must be 10 or 12 digits`);
         return false;
       }
 

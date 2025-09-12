@@ -165,7 +165,7 @@ const Checkout = () => {
       return;
     }
 
-    if (name === "phone" && !/^\d{0,11}$/.test(value)) {
+    if (name === "phone" && !/^\d{0,12}$/.test(value)) {
       return;
     }
 
@@ -201,7 +201,8 @@ const Checkout = () => {
   const validateForm = () => {
     const nameRegex = /^[A-Za-z]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10,11}$/;
+    // const phoneRegex = /^[0-9]{10,11}$/;
+    const phoneRegex = /^\+\d{10,12}$/;
     const pincodeRegex = /^\d{5,6}$/;
     const checkFields = (data, type) => {
       for (const key in data) {

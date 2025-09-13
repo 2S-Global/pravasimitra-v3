@@ -66,7 +66,7 @@ export default function MembershipSuccess() {
       <div className="card shadow-lg p-4 text-center" style={{ maxWidth: 450 }}>
         {countdown === null ? (
           <>
-            <div className="spinner-border text-primary mb-3" role="status" />
+            <div className="spinner-border text-primary mb-3 mx-auto d-block" role="status" />
             <h4 className="fw-bold">Processing your membership...</h4>
             <p className="text-muted">Please wait while we confirm your payment.</p>
           </>
